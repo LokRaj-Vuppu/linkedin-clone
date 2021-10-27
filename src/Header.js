@@ -7,8 +7,19 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useDispatch, useSelector } from 'react-redux';
+import { auth } from "./firebase";
+import { logout, selectUser } from "./features/userSlice"
 
 function Header() {
+  
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
+  
   return (
     <div className="header">
       <div className="header__left">
@@ -19,7 +30,7 @@ function Header() {
 
         <div className="header__search">
           <SearchIcon />
-          <input type="text" />
+          <input placeholder="Search" type="text" />
         </div>
       </div>
 
@@ -30,8 +41,8 @@ function Header() {
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
         <HeaderOption
-          avatar="https://4.bp.blogspot.com/-fydNw4wF70Q/UkA2hfrcP0I/AAAAAAAApZs/Ya764aft7oc/s1600/Allu+Arjun+HD+Wallpapers+1.jpg"
-          title="me"
+         avatar={true}
+          title="me" onClick={logoutOfApp}
         />
       </div>
     </div>
